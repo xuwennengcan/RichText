@@ -14,4 +14,5 @@ public interface OnImageClickListener {
      * @param position  点击处图片在imageUrls中的位置
      */
     void imageClicked(List<String> imageUrls, int position);
+
 }
