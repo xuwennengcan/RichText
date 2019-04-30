@@ -9,13 +9,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zzhoujay.richtext.RichText;
+import com.zzhoujay.richtext.callback.OnImageClickListener;
+
+import java.util.List;
 
 /**
  * Created by zhou on 16-6-17.
  */
 public class RecyclerViewActivity extends AppCompatActivity {
+
+    private static final String HTML = "<p><img alt=\"黎远智_01.jpg\" src=\"http://crm-upload.oss-cn-hangzhou.aliyuncs.com/image/user/tutorDetail/201805/24/dxp8cntnakab6w5p7u69jcgehpa63bgo.jpg\" width=\"750\" height=\"1493\"><img alt=\"黎远智_02.jpg\" src=\"http://crm-upload.oss-cn-hangzhou.aliyuncs.com/image/user/tutorDetail/201801/11/h7xgodmizmgdpvzko9rq9v4honrrdikg.jpg\" width=\"750\" height=\"1122\"><img alt=\"黎远智_03.jpg\" src=\"http://crm-upload.oss-cn-hangzhou.aliyuncs.com/image/user/tutorDetail/201801/11/j1yehqlqhuyw9tgiitcmrifippyvjy0z.jpg\" width=\"750\" height=\"1044\"><img alt=\"黎远智_04.jpg\" src=\"http://crm-upload.oss-cn-hangzhou.aliyuncs.com/image/user/tutorDetail/201801/11/azntmyn7lbu5qtdcmb2rznrnafm0n5so.jpg\" width=\"750\" height=\"1403\"><br></p>";
 
     private static final String[] testString1 = new String[]{
             "<h3>Test1</h3><img src=\"http://h.hiphotos.baidu.com/image/h%3D200/sign=e72c850a09f3d7ca13f63876c21fbe3c/a2cc7cd98d1001e9460fd63bbd0e7bec54e797d7.jpg\" />",
@@ -71,6 +77,13 @@ public class RecyclerViewActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler);
+
+        RichText.from(HTML).imageClick(new OnImageClickListener() {
+            @Override
+            public void imageClicked(List<String> imageUrls, int position) {
+                Toast.makeText(RecyclerViewActivity.this,"下标："+position,Toast.LENGTH_SHORT).show();
+            }
+        }).into((TextView) findViewById(R.id.tv));
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
